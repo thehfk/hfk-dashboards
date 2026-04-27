@@ -390,55 +390,40 @@ function renderSeasonReport(r, seasonKey, member) {
   const partner = r.partner || {};
   const partnerLine = partner.name + (partner.company ? ` (${partner.company})` : '');
 
-  // seasonKey로 member.seasons에서 해당 시즌 동기/4L 찾기
-  const SEASON_SHORT_RE = (key) => new RegExp(`(?:20${key.slice(0,2)}.{0,15}?${key.slice(2)}|^${key})`);
-  const memberSeason = (member.seasons || []).find(s => SEASON_SHORT_RE(seasonKey).test(s.season_raw || s.season || ''));
-
-  // GROWTH INSIGHTS: 참여 현황 → 4L 요약 (전체 보기 토글) → 체크포인트
+  // GROWTH INSIGHTS (AI 생성) - 체크포인트, 참여 현황만 (4L/다음 시즌은 From HFK와 중복)
   let insightsBlock = '';
-  {
-    const ins = r.insights || {};
-    const sr = member.season_report || {};
-    const rawRounds = (memberSeason && memberSeason.review_4l && memberSeason.review_4l.rounds) || [];
-    const fourLBoxRaw = rawRounds.length
-      ? `<details class="fourl-full-toggle" style="margin-top:10px;">
-          <summary style="cursor:pointer;font-size:12px;color:var(--hfk-red);font-weight:600;padding:6px 0;">전체 보기 (${rawRounds.length}회차)</summary>
-          <div style="margin-top:8px;">
-            ${rawRounds.map(rd => `
-              <div style="background:#fff;border-radius:var(--radius-xs);padding:12px 14px;margin-bottom:8px;">
-                <div style="font-size:11px;font-weight:700;color:var(--hfk-red);margin-bottom:4px;">${escapeHtml(rd.title || (rd.number + '회차'))}</div>
-                <p style="font-size:12px;line-height:1.6;color:var(--text-dark);margin:0;white-space:pre-wrap;">${escapeHtml(rd.raw)}</p>
-              </div>
-            `).join('')}
-          </div>
-        </details>`
-      : '';
-    const blocks = [];
-    if (memberSeason && memberSeason.motivation) {
-      blocks.push(`<div class="insight-box"><h4>등록 동기</h4><p>${escapeHtml(memberSeason.motivation)}</p></div>`);
-    }
-    if (ins.participation) {
-      blocks.push(`<div class="insight-box"><h4>참여 현황</h4><p>${escapeHtml(ins.participation)}</p></div>`);
-    }
-    if (sr.fourL || fourLBoxRaw) {
-      const summary = sr.fourL ? `<p>${escapeHtml(sr.fourL)}</p>` : '';
-      blocks.push(`<div class="insight-box"><h4>4L 요약</h4>${summary}${fourLBoxRaw}</div>`);
-    }
-    if (ins.observation) {
-      blocks.push(`<div class="insight-box"><h4>체크포인트</h4><p>${escapeHtml(ins.observation)}</p></div>`);
-    }
-    if (blocks.length) {
+  if (r.insights) {
+    const ins = r.insights;
+    const items = [
+      { title: '체크포인트', text: ins.observation },
+      { title: '참여 현황', text: ins.participation },
+    ].filter(x => x.text);
+    if (items.length) {
       insightsBlock = `
         <div class="report-section">
           <div class="report-section-title">GROWTH INSIGHTS</div>
-          ${blocks.join('')}
+          ${items.map(i => `<div class="insight-box"><h4>${escapeHtml(i.title)}</h4><p>${escapeHtml(i.text)}</p></div>`).join('')}
         </div>`;
     }
   }
 
-  // 등록 동기는 GROWTH INSIGHTS 안으로 이동, 별도 섹션 제거
+  // seasonKey로 member.seasons에서 해당 시즌 동기/4L 찾기
+  const SEASON_SHORT_RE = (key) => new RegExp(`(?:20${key.slice(0,2)}.{0,15}?${key.slice(2)}|^${key})`);
+  const memberSeason = (member.seasons || []).find(s => SEASON_SHORT_RE(seasonKey).test(s.season_raw || s.season || ''));
+
   let motivBlock = '';
   let fourlBlock = '';
+  if (memberSeason) {
+    if (memberSeason.motivation) {
+      motivBlock = `
+        <div class="report-section">
+          <div class="report-section-title">REGISTRATION MOTIVATION</div>
+          <div class="insight-box"><h4>등록 동기</h4><p>${escapeHtml(memberSeason.motivation)}</p></div>
+        </div>`;
+    }
+    // 회차별 raw 4L은 별도 섹션 X. From HFK 4L 요약 안의 토글로 표시 (renderHfkSeasonReport에 전달)
+    fourlBlock = '';
+  }
 
   return `
     <div class="report-info-grid">
@@ -474,39 +459,51 @@ function renderSeasonReport(r, seasonKey, member) {
     </div>
     ${motivBlock}
     ${insightsBlock}
-    ${renderHfkSeasonReport(member.season_report, memberSeason, member)}
+    ${renderHfkSeasonReport(member.season_report, memberSeason)}
   `;
 }
 
-function renderHfkSeasonReport(sr, memberSeason, member) {
-  if (!sr && !member) return '';
-  // 4L 요약은 GROWTH INSIGHTS로 이동. From HFK는 비슷한 멤버들의 흐름 → 다음 시즌 제안 순.
-  const sp = sr && sr.similarPeers && (sr.similarPeers.summary_stats || sr.similarPeers.summary_narrative)
+function renderHfkSeasonReport(sr, memberSeason) {
+  if (!sr) return '';
+  const rawRounds = (memberSeason && memberSeason.review_4l && memberSeason.review_4l.rounds) || [];
+  const rawHtml = rawRounds.length
+    ? `<details class="fourl-full-toggle" style="margin-top:10px;">
+        <summary style="cursor:pointer;font-size:12px;color:var(--hfk-red);font-weight:600;padding:6px 0;">전체 보기 (${rawRounds.length}회차)</summary>
+        <div style="margin-top:8px;">
+          ${rawRounds.map(rd => `
+            <div style="background:#fff;border-radius:var(--radius-xs);padding:12px 14px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:var(--hfk-red);margin-bottom:4px;">${escapeHtml(rd.title || (rd.number + '회차'))}</div>
+              <p style="font-size:12px;line-height:1.6;color:var(--text-dark);margin:0;white-space:pre-wrap;">${escapeHtml(rd.raw)}</p>
+            </div>
+          `).join('')}
+        </div>
+      </details>`
+    : '';
+  const fl = sr.fourL
+    ? `<div class="insight-box"><h4>4L 요약</h4><p>${escapeHtml(sr.fourL)}</p>${rawHtml}</div>`
+    : (rawHtml ? `<div class="insight-box"><h4>4L 회고</h4>${rawHtml}</div>` : '');
+  const ns = sr.nextSeason
+    ? `<div class="insight-box"><h4>다음 시즌 제안</h4>
+        <p>${escapeHtml(sr.nextSeason)}</p>
+        ${(sr.nextTeams || []).map(t => {
+          const url = teamProductUrl(t.name);
+          const teamLabel = url
+            ? `<a href="${url}" target="_blank" style="color:var(--hfk-burgundy);text-decoration:underline;font-weight:700;">${escapeHtml(t.name)}</a>`
+            : `<strong>${escapeHtml(t.name)}</strong>`;
+          return `<p style="margin-top:10px;">${teamLabel} <span style="font-size:11px;color:var(--hfk-red);margin-left:4px;">${escapeHtml(t.track)}</span><br>${escapeHtml(t.desc)}</p>`;
+        }).join('')}
+      </div>`
+    : '';
+  const sp = sr.similarPeers && (sr.similarPeers.summary_stats || sr.similarPeers.summary_narrative)
     ? `<div class="insight-box"><h4>비슷한 멤버들의 흐름</h4>
         ${sr.similarPeers.summary_stats ? `<p>${escapeHtml(sr.similarPeers.summary_stats)}</p>` : ''}
         ${sr.similarPeers.summary_narrative ? `<p style="margin-top:8px;">${escapeHtml(sr.similarPeers.summary_narrative)}</p>` : ''}
       </div>`
     : '';
-
-  // 다음 시즌 제안: recommendations_26여름.picks 사용 (성장 로드맵과 동일 데이터)
-  const picks = (member && member.recommendations_26여름 && member.recommendations_26여름.picks) || [];
-  const ns = picks.length
-    ? `<div class="insight-box"><h4>다음 시즌 제안</h4>
-        ${picks.map(t => {
-          const url = t.product_url;
-          const teamLabel = url
-            ? `<a href="${url}" target="_blank" style="color:var(--hfk-burgundy);text-decoration:underline;font-weight:700;">${escapeHtml(t.team)}</a>`
-            : `<strong>${escapeHtml(t.team)}</strong>`;
-          const trackText = t.track ? `${t.track} 트랙` : '';
-          return `<p style="margin-top:10px;">${teamLabel}${trackText ? `<span style="font-size:11px;color:var(--hfk-red);margin-left:6px;">${escapeHtml(trackText)}</span>` : ''}<br>${escapeHtml(t.reason || '')}</p>`;
-        }).join('')}
-      </div>`
-    : '';
-
-  if (!sp && !ns) return '';
+  if (!fl && !ns && !sp) return '';
   return `<div class="report-section">
     <div class="report-section-title">From HFK</div>
-    ${sp}${ns}
+    ${fl}${ns}${sp}
   </div>`;
 }
 
