@@ -319,6 +319,37 @@ body {
   .profile-stats { gap: 16px; }
   .stat-item b { font-size: 16px; }
 }
+
+/* 하트 (관심 표현) */
+.heart-guide { font-size: 13px; color: var(--text-light); margin: 0 0 14px; line-height: 1.7; }
+.heart-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 12px; padding: 5px 12px;
+  border: 1px solid #e5ddd8; border-radius: 20px;
+  background: #fff; color: var(--hfk-red);
+  font-size: 14px; cursor: pointer; transition: background .12s, border-color .12s, color .12s;
+  font-family: inherit;
+}
+.heart-btn:hover { border-color: var(--hfk-red); background: #fff6f5; }
+.heart-btn.hearted { background: var(--hfk-red); border-color: var(--hfk-red); color: #fff; }
+.heart-btn:disabled { opacity: .6; cursor: default; }
+.heart-btn .hi { font-size: 15px; line-height: 1; }
+.heart-btn .hc { font-size: 12px; font-weight: 700; min-width: 6px; }
+.rec-alt-badge {
+  display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 10px;
+  font-size: 11px; font-weight: 700; background: var(--hfk-red); color: #fff; vertical-align: middle;
+}
+/* 다른 팀 둘러보기 */
+.browse-section { margin: 8px 0 24px; padding: 24px 4px 0; border-top: 1px solid #eee3dd; }
+.browse-title { font-size: 16px; font-weight: 700; color: var(--hfk-burgundy); margin: 0 0 6px; }
+.browse-sub { font-size: 13px; color: var(--text-light); margin: 0 0 18px; line-height: 1.7; }
+.browse-grid { display: grid; gap: 12px; }
+.browse-team { border: 1px solid #eee3dd; border-radius: 12px; padding: 14px 16px; background: #fff; }
+.browse-team-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.browse-team-name { font-size: 15px; font-weight: 700; color: var(--hfk-burgundy); }
+.browse-team-meta { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+.browse-team-lead { font-size: 13px; color: var(--text-light); margin: 8px 0 0; line-height: 1.6; }
+.browse-team .heart-btn { margin-top: 0; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -331,6 +362,8 @@ const INDEX_URL = './data/index.json';
 const params = new URLSearchParams(window.location.search);
 const token = params.get('t');
 const TOKEN_RE = /^[0-9a-f]{16}$/;
+// 하트 백엔드(Apps Script 웹앱 /exec URL).
+const HEART_API = 'https://script.google.com/macros/s/AKfycbx-ockjEbi-z9dHFGb7eQ29Nc0z9wKyw51xLIRCbN2Vt28x1l_uWNhlXNX8khHx-z7S/exec';
 
 function escapeHtml(s) {
   return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -651,38 +684,113 @@ function renderTrackFlow(member, tracks) {
 }
 
 function renderFutureCards(member) {
-  const rec = member.recommendations_26여름;
+  const rec = member.recommendations_26가을;
   if (!rec || !rec.picks || !rec.picks.length) return '';
+  const emph = rec.intro_emph || (escapeHtml(member.name) + '님, 다음 시즌을 함께 준비해요.');
+  const body = rec.intro_body || 'HFK가 추천하는 다음 팀입니다.';
   const bridge = `
     <div class="journey-bridge">
-      <span class="bridge-label">다음 시즌 · 26여름</span>
+      <span class="bridge-label">다음 시즌 · 26가을</span>
       <div class="journey-intro">
-        <p class="journey-intro-emph">${escapeHtml(member.name)}님의 성장은 중요합니다.</p>
-        <p class="journey-intro-body">지난 ${member.total_count}시즌의 흐름을 보고 HFK가 추천하는 다음 3팀입니다.</p>
+        <p class="journey-intro-emph">${escapeHtml(emph)}</p>
+        <p class="journey-intro-body">${escapeHtml(body)}</p>
       </div>
     </div>
   `;
+  const guide = `<p class="heart-guide">마음에 드는 추천에는 하트를 눌러주세요. 하트는 다음 시즌 편성에 참고합니다.</p>`;
   const items = rec.picks.map((p, i) => {
     const color = TRACK_COLORS[p.track] || '#999';
+    const altBadge = p.is_alt ? `<span class="rec-alt-badge">교대 추천</span>` : '';
     return `
       <div class="season-card future">
         <div class="season-head">
           <div class="season-main">
-            <span class="season-label">26여름</span>
-            <span class="season-team">${escapeHtml(p.team)}</span>
+            <span class="season-label">26가을</span>
+            <span class="season-team">${escapeHtml(p.team)}${altBadge}</span>
           </div>
           <span class="season-tag" style="background:${color}; color:#fff;">${escapeHtml(p.track || '미지정')}</span>
         </div>
         ${p.headline ? `<div class="rec-headline">${escapeHtml(p.headline)}</div>` : ''}
         <p class="rec-reason">${escapeHtml(p.reason)}</p>
+        <button class="heart-btn" type="button" data-team="${escapeHtml(p.team)}" data-source="추천"><span class="hi">♡</span><span class="hc"></span></button>
         ${p.product_url ? `<a class="rec-cta" href="${escapeHtml(p.product_url)}" target="_blank" rel="noopener">팀 소개 보기 →</a>` : ''}
       </div>
     `;
   }).join('');
-  return bridge + items;
+  return bridge + guide + items;
 }
 
-function renderProfile(member, tracks) {
+function renderBrowseTeams(member, fallTeams) {
+  if (!fallTeams || !fallTeams.teams || !fallTeams.teams.length) return '';
+  const rec = member.recommendations_26가을;
+  const recNames = new Set((rec && rec.picks) ? rec.picks.map(p => p.team) : []);
+  const others = fallTeams.teams.filter(t => !recNames.has(t.name));
+  if (!others.length) return '';
+  const cards = others.map(t => `
+      <div class="browse-team">
+        <div class="browse-team-head">
+          <div>
+            <span class="browse-team-name">${escapeHtml(t.name)}</span>
+            <div class="browse-team-meta">${escapeHtml(t.day_type || '미정')}${t.track ? ' · ' + escapeHtml(t.track) : ''}</div>
+          </div>
+          <button class="heart-btn" type="button" data-team="${escapeHtml(t.name)}" data-source="둘러보기"><span class="hi">♡</span><span class="hc"></span></button>
+        </div>
+        ${t.lead ? `<p class="browse-team-lead">${escapeHtml(t.lead)}</p>` : ''}
+      </div>
+  `).join('');
+  return `
+    <div class="browse-section">
+      <div class="browse-title">다른 팀도 둘러보세요</div>
+      <p class="browse-sub">추천 3팀 말고도 26가을에는 이런 팀들이 열려요. 관심 가는 팀에 하트를 눌러주세요. 하트는 다음 시즌을 준비하는 데 참고합니다.</p>
+      <div class="browse-grid">${cards}</div>
+    </div>
+  `;
+}
+
+function setHeart(btn, on, count) {
+  btn.classList.toggle('hearted', !!on);
+  btn.querySelector('.hi').textContent = on ? '♥' : '♡';
+  btn.querySelector('.hc').textContent = count > 0 ? count : '';
+}
+
+async function toggleHeart(btn, member) {
+  if (!HEART_API) return;  // 백엔드 미연결 시 저장 안 함
+  const team = btn.dataset.team;
+  const source = btn.dataset.source || '추천';
+  const willOn = !btn.classList.contains('hearted');
+  const curCount = parseInt(btn.querySelector('.hc').textContent || '0', 10);
+  setHeart(btn, willOn, Math.max(0, curCount + (willOn ? 1 : -1)));  // 낙관적 UI
+  btn.disabled = true;
+  try {
+    const url = `${HEART_API}?action=toggle&token=${encodeURIComponent(token)}`
+      + `&team=${encodeURIComponent(team)}&source=${encodeURIComponent(source)}`
+      + `&name=${encodeURIComponent(member.name || '')}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data && typeof data.count === 'number') setHeart(btn, data.state === 'on', data.count);
+  } catch (e) {
+    setHeart(btn, !willOn, curCount);  // 실패 롤백
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function attachHearts(member) {
+  const btns = document.querySelectorAll('.heart-btn');
+  if (!btns.length) return;
+  if (HEART_API) {
+    try {
+      const res = await fetch(`${HEART_API}?action=state&token=${encodeURIComponent(token)}`);
+      const data = await res.json();
+      const counts = data.counts || {};
+      const mine = new Set(data.mine || []);
+      btns.forEach(b => setHeart(b, mine.has(b.dataset.team), counts[b.dataset.team] || 0));
+    } catch (e) { /* 카운트 없이 표시 */ }
+  }
+  btns.forEach(b => b.addEventListener('click', () => toggleHeart(b, member)));
+}
+
+function renderProfile(member, tracks, fallTeams) {
   const root = document.getElementById('app');
   root.className = 'profile-view';
 
@@ -712,6 +820,7 @@ function renderProfile(member, tracks) {
     ? renderTrackFlow(member, tracks)
     : '';
   const futureHtml = renderFutureCards(member);
+  const browseHtml = renderBrowseTeams(member, fallTeams);
 
   const narrative = member.total_count >= 2
     ? `${escapeHtml(member.first_season)}에 시작해 ${escapeHtml(member.latest_season)}까지, HFK에서 ${member.total_count}시즌을 보냈습니다.`
@@ -760,12 +869,12 @@ function renderProfile(member, tracks) {
 
   // 탭 콘텐츠 결정
   const hasReport = !!reportHtml;
-  const hasRoadmap = allSeasonsTimelineHtml || futureHtml;
+  const hasRoadmap = allSeasonsTimelineHtml || futureHtml || browseHtml;
 
   // 탭 1: 이번 시즌 리포트 (시즌 pill + 출석/이벤트/동기/4L)
   const reportTab = reportHtml;
   // 탭 2: 성장 로드맵 (트랙 차트 + 모든 시즌 timeline + 다음 시즌)
-  const roadmapTab = `${trackFlowHtml}<div class="timeline">${allSeasonsTimelineHtml}${futureHtml}</div>`;
+  const roadmapTab = `${trackFlowHtml}<div class="timeline">${allSeasonsTimelineHtml}${futureHtml}</div>${browseHtml}`;
 
   let tabsHtml;
   if (hasReport && hasRoadmap) {
@@ -798,6 +907,7 @@ function renderProfile(member, tracks) {
   `;
   attachTabs();
   attachTooltip();
+  attachHearts(member);
 }
 
 function attachTabs() {
@@ -885,8 +995,9 @@ if (!token) {
       if (!r.ok) throw new Error('not found');
       return r.json();
     }),
+    fetch('./data/fall_teams.json').then(r => r.ok ? r.json() : null).catch(() => null),
   ])
-    .then(([index, member]) => renderProfile(member, index.tracks || []))
+    .then(([index, member, fallTeams]) => renderProfile(member, index.tracks || [], fallTeams))
     .catch(err => { console.error('render error:', err); renderInvalid('페이지를 찾을 수 없습니다', '링크가 잘못되었거나 만료되었을 수 있습니다. (' + (err && err.message ? err.message : err) + ')'); });
 }
 </script>
