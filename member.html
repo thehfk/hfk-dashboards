@@ -323,18 +323,18 @@ body {
 /* 하트 (관심 표현) */
 .heart-guide { font-size: 13px; color: var(--text-light); margin: 0 0 14px; line-height: 1.7; }
 .heart-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  margin-top: 12px; padding: 5px 12px;
-  border: 1px solid #e5ddd8; border-radius: 20px;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-top: 12px; width: 40px; height: 40px; padding: 0;
+  border: 1px solid #e5ddd8; border-radius: 50%;
   background: #fff; color: var(--hfk-red);
-  font-size: 14px; cursor: pointer; transition: background .12s, border-color .12s, color .12s;
+  cursor: pointer; transition: background .12s, border-color .12s, color .12s;
   font-family: inherit;
 }
 .heart-btn:hover { border-color: var(--hfk-red); background: #fff6f5; }
 .heart-btn.hearted { background: var(--hfk-red); border-color: var(--hfk-red); color: #fff; }
 .heart-btn:disabled { opacity: .6; cursor: default; }
-.heart-btn .hi { font-size: 15px; line-height: 1; }
-.heart-btn .hc { font-size: 12px; font-weight: 700; min-width: 6px; }
+.heart-btn .hi { font-size: 18px; line-height: 1; }
+.heart-btn .hc { display: none; }
 .rec-alt-badge {
   display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 10px;
   font-size: 11px; font-weight: 700; background: var(--hfk-red); color: #fff; vertical-align: middle;
