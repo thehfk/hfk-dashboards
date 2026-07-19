@@ -718,14 +718,13 @@ function renderFutureCards(member) {
   const guide = fall ? `<p class="heart-guide">마음에 드는 추천에는 하트를 눌러주세요. 하트는 다음 시즌 편성에 참고합니다.</p>` : '';
   const items = rec.picks.map((p, i) => {
     const color = TRACK_COLORS[p.track] || '#999';
-    const altBadge = (fall && p.is_alt) ? `<span class="rec-alt-badge">교대 추천</span>` : '';
     const heart = fall ? `<button class="heart-btn" type="button" data-team="${escapeHtml(p.team)}" data-source="추천"><span class="hi">♡</span><span class="hc"></span></button>` : '';
     return `
       <div class="season-card future">
         <div class="season-head">
           <div class="season-main">
             <span class="season-label">${seasonLabel}</span>
-            <span class="season-team">${escapeHtml(p.team)}${altBadge}</span>
+            <span class="season-team">${escapeHtml(p.team)}</span>
           </div>
           <span class="season-tag" style="background:${color}; color:#fff;">${escapeHtml(p.track || '미지정')}</span>
         </div>
