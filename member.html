@@ -350,6 +350,21 @@ body {
 .browse-team-meta { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 .browse-team-lead { font-size: 13px; color: var(--text-light); margin: 8px 0 0; line-height: 1.6; }
 .browse-team .heart-btn { margin-top: 0; flex-shrink: 0; }
+/* 콜투액션: 26가을 오픈 알림 */
+.cta-block {
+  margin: 24px 0 8px; padding: 24px 20px; border-radius: 14px;
+  background: var(--bg-warm); border: 1px solid #eee3dd; text-align: center;
+}
+.cta-copy { font-size: 14px; color: var(--text); margin: 0 0 16px; line-height: 1.7; }
+.cta-alarm {
+  display: inline-block; padding: 12px 26px; border-radius: 24px;
+  border: none; background: var(--hfk-red); color: #fff;
+  font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: background .12s;
+}
+.cta-alarm:hover { background: var(--hfk-burgundy); }
+.cta-alarm.hearted { background: #2f7d4f; }
+.cta-alarm:disabled { opacity: .7; cursor: default; }
 </style>
 </head>
 <body>
@@ -736,7 +751,7 @@ function renderBrowseTeams(member, fallTeams) {
         <div class="browse-team-head">
           <div>
             <span class="browse-team-name">${escapeHtml(t.name)}</span>
-            <div class="browse-team-meta">${escapeHtml(t.day_type || '미정')}${t.track ? ' · ' + escapeHtml(t.track) : ''}</div>
+            ${t.track ? `<div class="browse-team-meta">${escapeHtml(t.track)}</div>` : ''}
           </div>
           <button class="heart-btn" type="button" data-team="${escapeHtml(t.name)}" data-source="둘러보기"><span class="hi">♡</span><span class="hc"></span></button>
         </div>
@@ -752,18 +767,33 @@ function renderBrowseTeams(member, fallTeams) {
   `;
 }
 
+function renderCTA(member) {
+  return `
+    <div class="cta-block">
+      <p class="cta-copy">26가을 팀은 곧 열려요. 오픈하면 제일 먼저 슬랙으로 알려드릴게요.</p>
+      <button class="cta-alarm" type="button" data-cta="1" data-team="오픈알림신청" data-source="CTA" data-ctalabel="26가을 오픈 알림 받기"><span class="cta-label">26가을 오픈 알림 받기</span></button>
+    </div>
+  `;
+}
+
 function setHeart(btn, on, count) {
   btn.classList.toggle('hearted', !!on);
-  btn.querySelector('.hi').textContent = on ? '♥' : '♡';
-  btn.querySelector('.hc').textContent = count > 0 ? count : '';
+  if (btn.dataset.cta) {  // CTA 버튼: 라벨만 바꿈
+    const lab = btn.querySelector('.cta-label');
+    if (lab) lab.textContent = on ? '알림 신청 완료. 오픈하면 알려드릴게요' : btn.dataset.ctalabel;
+    return;
+  }
+  const hi = btn.querySelector('.hi'); if (hi) hi.textContent = on ? '♥' : '♡';
+  const hc = btn.querySelector('.hc'); if (hc) hc.textContent = count > 0 ? count : '';
 }
 
 async function toggleHeart(btn, member) {
   if (!HEART_API) return;  // 백엔드 미연결 시 저장 안 함
   const team = btn.dataset.team;
   const source = btn.dataset.source || '추천';
+  const isCta = !!btn.dataset.cta;
   const willOn = !btn.classList.contains('hearted');
-  const curCount = parseInt(btn.querySelector('.hc').textContent || '0', 10);
+  const curCount = isCta ? 0 : parseInt((btn.querySelector('.hc') || {}).textContent || '0', 10);
   setHeart(btn, willOn, Math.max(0, curCount + (willOn ? 1 : -1)));  // 낙관적 UI
   btn.disabled = true;
   try {
@@ -781,7 +811,7 @@ async function toggleHeart(btn, member) {
 }
 
 async function attachHearts(member) {
-  const btns = document.querySelectorAll('.heart-btn');
+  const btns = document.querySelectorAll('.heart-btn, .cta-alarm');
   if (!btns.length) return;
   if (HEART_API) {
     try {
@@ -826,6 +856,7 @@ function renderProfile(member, tracks, fallTeams) {
     : '';
   const futureHtml = renderFutureCards(member);
   const browseHtml = renderBrowseTeams(member, fallTeams);
+  const ctaHtml = renderCTA(member);
 
   const narrative = member.total_count >= 2
     ? `${escapeHtml(member.first_season)}에 시작해 ${escapeHtml(member.latest_season)}까지, HFK에서 ${member.total_count}시즌을 보냈습니다.`
@@ -879,7 +910,7 @@ function renderProfile(member, tracks, fallTeams) {
   // 탭 1: 이번 시즌 리포트 (시즌 pill + 출석/이벤트/동기/4L)
   const reportTab = reportHtml;
   // 탭 2: 성장 로드맵 (트랙 차트 + 모든 시즌 timeline + 다음 시즌)
-  const roadmapTab = `${trackFlowHtml}<div class="timeline">${allSeasonsTimelineHtml}${futureHtml}</div>${browseHtml}`;
+  const roadmapTab = `${trackFlowHtml}<div class="timeline">${allSeasonsTimelineHtml}${futureHtml}</div>${browseHtml}${ctaHtml}`;
 
   let tabsHtml;
   if (hasReport && hasRoadmap) {
