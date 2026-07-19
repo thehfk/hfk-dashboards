@@ -782,7 +782,8 @@ function setHeart(btn, on, count) {
     return;
   }
   const hi = btn.querySelector('.hi'); if (hi) hi.textContent = on ? '♥' : '♡';
-  const hc = btn.querySelector('.hc'); if (hc) hc.textContent = count > 0 ? count : '';
+  // 집계 숫자는 멤버에게 숨김(쏠림 방지). 운영자는 하트집계 시트에서 확인.
+  const hc = btn.querySelector('.hc'); if (hc) hc.textContent = '';
 }
 
 async function toggleHeart(btn, member) {
