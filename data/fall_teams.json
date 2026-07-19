@@ -3,7 +3,6 @@
   "teams": [
     {
       "name": "AI부사수",
-      "day_type": "주말",
       "track": "Enrichment",
       "band": "수렴",
       "headline": "부사수 없이 홀로 모든 것을 완성해야 한다면",
@@ -12,7 +11,6 @@
     },
     {
       "name": "AI핸즈온",
-      "day_type": "주중",
       "track": "Enrichment",
       "band": "수렴",
       "headline": "클로드 코드로 완성하는 나만의 실무 AI 워크 스페이스",
@@ -21,7 +19,6 @@
     },
     {
       "name": "AX메이커",
-      "day_type": "주말",
       "track": "Enrichment",
       "band": "수렴",
       "headline": "월요일에 쓸 내 도구 하나를 직접 만들어 가져가는 6회",
@@ -30,7 +27,6 @@
     },
     {
       "name": "CMO씽킹",
-      "day_type": "주말",
       "track": "Horizontal",
       "band": "양방향",
       "headline": "CMO의 의사결정 과정을 함께 들여다보는 3개월",
@@ -39,7 +35,6 @@
     },
     {
       "name": "강점차별화",
-      "day_type": "주말",
       "track": "Enrichment",
       "band": "수렴",
       "headline": "AI 시대에 정말 필요한 건, 나라는 변수를 정리하는 일",
@@ -48,7 +43,6 @@
     },
     {
       "name": "관찰과발견",
-      "day_type": "주말",
       "track": "Horizontal",
       "band": "양방향",
       "headline": "사용자 관찰로 문제를 정의하고, AI로 프로토타입까지 만들어 검증하는 팀",
@@ -57,7 +51,6 @@
     },
     {
       "name": "글쓰는OO",
-      "day_type": "주중",
       "track": "Enrichment",
       "band": "수렴",
       "headline": "내 일을 콘텐츠로 만들어 팔아보는 3개월",
@@ -66,7 +59,6 @@
     },
     {
       "name": "독립자본가",
-      "day_type": null,
       "track": "Realignment",
       "band": "수렴",
       "headline": "회사에 기대지 않고, 나를 기반으로 삶의 선택권을 만드는 사람들",
@@ -75,7 +67,6 @@
     },
     {
       "name": "리더될준비",
-      "day_type": "주말",
       "track": "Vertical",
       "band": "양방향",
       "headline": "실수와 깨달음을 반복하기 전에, 리더십의 기본기를 미리 정리합니다",
@@ -84,7 +75,6 @@
     },
     {
       "name": "리더의서재",
-      "day_type": "주중",
       "track": "New Horizons",
       "band": "발산",
       "headline": "혼자서는 완독하기 어려운 벽돌책 속에서, 리더의 자기 가설을 함께 발견합니다",
@@ -93,7 +83,6 @@
     },
     {
       "name": "마케팅디깅",
-      "day_type": "주중",
       "track": "Horizontal",
       "band": "발산",
       "headline": "브랜딩부터 그로스까지, 흔들리지 않는 나만의 판단 기준을 세웁니다",
@@ -102,7 +91,6 @@
     },
     {
       "name": "숫자읽는법",
-      "day_type": "주말",
       "track": "Horizontal",
       "band": "수렴",
       "headline": "모두가 아는 회사의 공시로 배우고, 내 회사 워크시트로 남기는 재무의 눈",
@@ -111,7 +99,6 @@
     },
     {
       "name": "시니어노트",
-      "day_type": null,
       "track": "Realignment",
       "band": "수렴",
       "headline": "커리어 그래프로 지나온 일을 회고하고, 후배에게도 건넬 나의 암묵지 노트를 완성하는 시니어의 글쓰기 팀",
@@ -120,7 +107,6 @@
     },
     {
       "name": "영어의완성",
-      "day_type": "주말",
       "track": "Enrichment",
       "band": "양방향",
       "headline": "애매한 중고급 레벨에 머물러 있던 영어를 완성하는 3개월",
@@ -129,7 +115,6 @@
     },
     {
       "name": "인간만의일",
-      "day_type": null,
       "track": "New Horizons",
       "band": "양방향",
       "headline": "AI를 실제 업무에 붙여보면서, 그럼에도 나만 할 수 있는 일을 찾아가는 팀",
@@ -138,7 +123,6 @@
     },
     {
       "name": "인생끝카피",
-      "day_type": "주중",
       "track": "Enrichment",
       "band": "수렴",
       "headline": "죽음이라는 컨셉으로 나를 뾰족하게 쓰는 3개월",
@@ -147,7 +131,6 @@
     },
     {
       "name": "중간리더십",
-      "day_type": "주말",
       "track": "Vertical",
       "band": "양방향",
       "headline": "동료들의 실제 사례를 토론하며 나만의 의사결정 기준을 다시 세웁니다",
@@ -156,7 +139,6 @@
     },
     {
       "name": "컨퍼런스콜",
-      "day_type": "주말",
       "track": "Enrichment",
       "band": "양방향",
       "headline": "미팅·인터뷰·라이팅·협상, 외국계의 네 무대에서 살아남는 영어를 익힙니다",
@@ -165,7 +147,6 @@
     },
     {
       "name": "팀오호츠크",
-      "day_type": "주말",
       "track": "New Horizons",
       "band": "발산",
       "headline": "HFK를 1번 이상 등록했던 멤버만 모여, 글로벌 이슈와 투자를 격주로 함께 점검하는 팀",
