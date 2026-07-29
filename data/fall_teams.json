@@ -10,7 +10,7 @@
       "product_url": null
     },
     {
-      "name": "AX메이커",
+      "name": "AX팀빌딩",
       "track": "Enrichment",
       "band": "수렴",
       "headline": "조직에 AI를 어떻게 도입해야 할 지 고민하며 AX의 시작을 만듭니다",
@@ -82,7 +82,7 @@
       "product_url": null
     },
     {
-      "name": "숫자읽는법",
+      "name": "투자의기준",
       "track": "Horizontal",
       "band": "수렴",
       "headline": "투자할 회사를 고르는 안목을 기르려면 숫자를 읽는 안목이 필요합니다",
@@ -95,14 +95,6 @@
       "band": "수렴",
       "headline": "연차만큼 쌓인 내 일의 노하우가 휘발되지 않도록 기록으로 남깁니다",
       "lead": "연차만큼 쌓인 내 일의 노하우가 휘발되지 않도록 기록으로 남깁니다",
-      "product_url": null
-    },
-    {
-      "name": "써보는경험",
-      "track": "New Horizons",
-      "band": "수렴",
-      "headline": "평소 스치듯 휘발되는 생각을 붙잡아 한 편의 글로 정리합니다",
-      "lead": "평소 스치듯 휘발되는 생각을 붙잡아 한 편의 글로 정리합니다",
       "product_url": null
     },
     {
@@ -143,6 +135,14 @@
       "band": "발산",
       "headline": "직장의 성과와 자산의 성장을 만들기 위해 글로벌 뉴스레터를 읽습니다",
       "lead": "직장의 성과와 자산의 성장을 만들기 위해 글로벌 뉴스레터를 읽습니다",
+      "product_url": null
+    },
+    {
+      "name": "0에서1로",
+      "track": "Realignment",
+      "band": "수렴",
+      "headline": "인풋은 충분합니다, 이제 클로드 코드로 내 프로젝트를 시작할 차례입니다",
+      "lead": "인풋은 충분히 쌓았는데, 왜 아직 내 이름으로 남은 결과물은 없을까요?",
       "product_url": null
     }
   ]
