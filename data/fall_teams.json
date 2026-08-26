@@ -2,7 +2,15 @@
   "season": "26가을",
   "teams": [
     {
-      "name": "AI부사수",
+      "name": "AI부사수(SUN)",
+      "track": "Enrichment",
+      "band": "수렴",
+      "headline": "혼자서 모든 일을 해내야만 한다면, AI 부사수가 필요합니다",
+      "lead": "혼자서 모든 일을 해내야만 한다면, AI 부사수가 필요합니다",
+      "product_url": null
+    },
+    {
+      "name": "AI부사수(TUE)",
       "track": "Enrichment",
       "band": "수렴",
       "headline": "혼자서 모든 일을 해내야만 한다면, AI 부사수가 필요합니다",
@@ -71,14 +79,6 @@
       "band": "발산",
       "headline": "혼자서는 완독하기 어려운 벽돌책 속에서 리더의 가설을 발견합니다",
       "lead": "혼자서는 완독하기 어려운 벽돌책 속에서 리더의 가설을 발견합니다",
-      "product_url": null
-    },
-    {
-      "name": "마케팅디깅",
-      "track": "Horizontal",
-      "band": "발산",
-      "headline": "회사마다 다른 마케터의 역할, 마케터와 마케팅의 본질이란 대체 뭘까요",
-      "lead": "회사마다 다른 마케터의 역할, 마케터와 마케팅의 본질이란 대체 뭘까요",
       "product_url": null
     },
     {
