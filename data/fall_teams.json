@@ -90,14 +90,6 @@
       "product_url": null
     },
     {
-      "name": "시니어노트",
-      "track": "Realignment",
-      "band": "수렴",
-      "headline": "연차만큼 쌓인 내 일의 노하우가 휘발되지 않도록 기록으로 남깁니다",
-      "lead": "연차만큼 쌓인 내 일의 노하우가 휘발되지 않도록 기록으로 남깁니다",
-      "product_url": null
-    },
-    {
       "name": "영어의완성",
       "track": "Enrichment",
       "band": "양방향",
@@ -106,35 +98,11 @@
       "product_url": null
     },
     {
-      "name": "인간만의일",
-      "track": "New Horizons",
-      "band": "양방향",
-      "headline": "AI를 잘 활용하고 있지만 그럼에도 나만 할 수 있는 일을 정리합니다",
-      "lead": "AI를 잘 활용하고 있지만 그럼에도 나만 할 수 있는 일을 정리합니다",
-      "product_url": null
-    },
-    {
       "name": "중간리더십",
       "track": "Vertical",
       "band": "양방향",
       "headline": "동료들의 성공적인 리더십 사례를 토론하며 나만의 의사결정 기준을 다시 찾습니다",
       "lead": "동료들의 성공적인 리더십 사례를 토론하며 나만의 의사결정 기준을 다시 찾습니다",
-      "product_url": null
-    },
-    {
-      "name": "컨퍼런스콜",
-      "track": "Enrichment",
-      "band": "양방향",
-      "headline": "영어가 필요한 순간, 전문성을 드러내려면 꾸준히 실력을 쌓아야 합니다",
-      "lead": "영어가 필요한 순간, 전문성을 드러내려면 꾸준히 실력을 쌓아야 합니다",
-      "product_url": null
-    },
-    {
-      "name": "팀오호츠크",
-      "track": "New Horizons",
-      "band": "발산",
-      "headline": "직장의 성과와 자산의 성장을 만들기 위해 글로벌 뉴스레터를 읽습니다",
-      "lead": "직장의 성과와 자산의 성장을 만들기 위해 글로벌 뉴스레터를 읽습니다",
       "product_url": null
     },
     {
