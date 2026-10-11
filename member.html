@@ -697,11 +697,25 @@ function renderTrackFlow(member, tracks) {
   `;
 }
 
+// 다음 시즌 추천. 26가을이 시작돼 recommendations_26가을·26여름은 철이 지났다(2026-10-11).
+// 26겨울 라인업이 정해지면 build 가 recommendations_26겨울 을 채우고, 그 전엔 준비 중 안내만 보인다.
+const NEXT_SEASON = '26겨울';
+
 function renderFutureCards(member) {
-  const fall = member.recommendations_26가을;
-  const rec = fall || member.recommendations_26여름;  // 26가을 없으면 기존 26여름 유지
-  if (!rec || !rec.picks || !rec.picks.length) return '';
-  const seasonLabel = fall ? '26가을' : '26여름';
+  const fall = member['recommendations_' + NEXT_SEASON];
+  const rec = fall;
+  const seasonLabel = NEXT_SEASON;
+  if (!rec || !rec.picks || !rec.picks.length) {
+    return `
+    <div class="journey-bridge">
+      <span class="bridge-label">다음 시즌 · ${seasonLabel}</span>
+      <div class="journey-intro">
+        <p class="journey-intro-emph">${escapeHtml(member.name + '님의 겨울 추천을 준비하고 있어요.')}</p>
+        <p class="journey-intro-body">${escapeHtml('겨울 라인업이 정해지면 지나온 시즌과 이번 시즌 4L을 보고 고른 팀을 이 자리에 추천해 드릴게요.')}</p>
+      </div>
+    </div>
+  `;
+  }
   const emph = (fall && fall.intro_emph) ? fall.intro_emph : (member.name + '님의 성장은 중요합니다.');
   const body = (fall && fall.intro_body) ? fall.intro_body
     : ('지난 ' + member.total_count + '시즌의 흐름을 보고 HFK가 추천하는 다음 3팀입니다.');
@@ -738,8 +752,8 @@ function renderFutureCards(member) {
 }
 
 function renderBrowseTeams(member, fallTeams) {
-  const rec = member.recommendations_26가을;
-  if (!rec) return '';  // 가을 추천 대상(150명)에게만 둘러보기 노출
+  const rec = member['recommendations_' + NEXT_SEASON];
+  if (!rec) return '';  // 다음 시즌 추천 대상에게만 둘러보기 노출
   if (!fallTeams || !fallTeams.teams || !fallTeams.teams.length) return '';
   const recNames = new Set((rec && rec.picks) ? rec.picks.map(p => p.team) : []);
   const others = fallTeams.teams.filter(t => !recNames.has(t.name));
@@ -759,7 +773,7 @@ function renderBrowseTeams(member, fallTeams) {
   return `
     <div class="browse-section">
       <div class="browse-title">다른 팀도 둘러보세요</div>
-      <p class="browse-sub">추천 3팀 말고도 26가을에는 이런 팀들이 열려요. 관심 가는 팀에 하트를 눌러주세요. 하트는 다음 시즌을 준비하는 데 참고합니다.</p>
+      <p class="browse-sub">추천 3팀 말고도 ${NEXT_SEASON}에는 이런 팀들이 열려요. 관심 가는 팀에 하트를 눌러주세요. 하트는 다음 시즌을 준비하는 데 참고합니다.</p>
       <div class="browse-grid">${cards}</div>
     </div>
   `;
@@ -768,8 +782,8 @@ function renderBrowseTeams(member, fallTeams) {
 function renderCTA(member) {
   return `
     <div class="cta-block">
-      <p class="cta-copy">26가을 팀은 곧 열려요. 오픈하면 제일 먼저 슬랙으로 알려드릴게요.</p>
-      <button class="cta-alarm" type="button" data-cta="1" data-team="오픈알림신청" data-source="CTA" data-ctalabel="26가을 오픈 알림 받기"><span class="cta-label">26가을 오픈 알림 받기</span></button>
+      <p class="cta-copy">${NEXT_SEASON} 팀이 공개되는 날 제일 먼저 슬랙으로 알려드릴게요.</p>
+      <button class="cta-alarm" type="button" data-cta="1" data-team="오픈알림신청_${NEXT_SEASON}" data-source="CTA" data-ctalabel="${NEXT_SEASON} 오픈 소식 가장 먼저 받기"><span class="cta-label">${NEXT_SEASON} 오픈 소식 가장 먼저 받기</span></button>
     </div>
   `;
 }
