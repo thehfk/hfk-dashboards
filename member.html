@@ -506,12 +506,14 @@ function renderSeasonReport(r, seasonKey, member) {
     </div>
     ${motivBlock}
     ${insightsBlock}
-    ${renderHfkSeasonReport(member.season_report, memberSeason)}
+    ${renderHfkSeasonReport(member.season_report, memberSeason, r.insights || {})}
   `;
 }
 
-function renderHfkSeasonReport(sr, memberSeason) {
-  if (!sr) return '';
+// 4L 요약·다음 시즌 제안은 그 시즌 인사이트(검수본)를 먼저 쓴다. 옛 season_report 는 없을 때만(2026-10-17)
+function renderHfkSeasonReport(sr, memberSeason, ins = {}) {
+  sr = sr || {};
+  if (!Object.keys(sr).length && !ins.fourL && !ins.suggestion && !(memberSeason && memberSeason.review_4l)) return '';
   const rawRounds = (memberSeason && memberSeason.review_4l && memberSeason.review_4l.rounds) || [];
   const rawHtml = rawRounds.length
     ? `<details class="fourl-full-toggle" style="margin-top:10px;">
@@ -526,10 +528,13 @@ function renderHfkSeasonReport(sr, memberSeason) {
         </div>
       </details>`
     : '';
-  const fl = sr.fourL
-    ? `<div class="insight-box"><h4>4L 요약</h4><p>${escapeHtml(sr.fourL)}</p>${rawHtml}</div>`
+  const fourLText = ins.fourL || sr.fourL;
+  const fl = fourLText
+    ? `<div class="insight-box"><h4>4L 요약</h4><p>${escapeHtml(fourLText)}</p>${rawHtml}</div>`
     : (rawHtml ? `<div class="insight-box"><h4>4L 회고</h4>${rawHtml}</div>` : '');
-  const ns = sr.nextSeason
+  const ns = ins.suggestion
+    ? `<div class="insight-box"><h4>다음 시즌 제안</h4><p>${escapeHtml(ins.suggestion)}</p></div>`
+    : sr.nextSeason
     ? `<div class="insight-box"><h4>다음 시즌 제안</h4>
         <p>${escapeHtml(sr.nextSeason)}</p>
         ${(sr.nextTeams || []).map(t => {
