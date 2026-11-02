@@ -705,6 +705,9 @@ function renderTrackFlow(member, tracks) {
 // 다음 시즌 추천. 26가을이 시작돼 recommendations_26가을·26여름은 철이 지났다(2026-10-11).
 // 26겨울 라인업이 정해지면 build 가 recommendations_26겨울 을 채우고, 그 전엔 준비 중 안내만 보인다.
 const NEXT_SEASON = '26겨울';
+// 상품이 판매대기라 오픈 전엔 상세 링크가 열리지 않는다. 이 시각 전에는 '팀 소개 보기'를 숨긴다
+const NEXT_SEASON_OPEN = new Date('2026-11-06T21:00:00+09:00');
+const nextSeasonOpen = () => new Date() >= NEXT_SEASON_OPEN;
 
 function renderFutureCards(member) {
   const fall = member['recommendations_' + NEXT_SEASON];
@@ -749,7 +752,7 @@ function renderFutureCards(member) {
         ${p.headline ? `<div class="rec-headline">${escapeHtml(p.headline)}</div>` : ''}
         <p class="rec-reason">${escapeHtml(p.reason)}</p>
         ${heart}
-        ${p.product_url ? `<a class="rec-cta" href="${escapeHtml(p.product_url)}" target="_blank" rel="noopener">팀 소개 보기 →</a>` : ''}
+        ${p.product_url && nextSeasonOpen() ? `<a class="rec-cta" href="${escapeHtml(p.product_url)}" target="_blank" rel="noopener">팀 소개 보기 →</a>` : ''}
       </div>
     `;
   }).join('');
@@ -1049,7 +1052,7 @@ if (!token) {
       if (!r.ok) throw new Error('not found');
       return r.json();
     }),
-    fetch('./data/fall_teams.json').then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch('./data/' + (NEXT_SEASON === '26겨울' ? 'winter' : 'fall') + '_teams.json').then(r => r.ok ? r.json() : null).catch(() => null),
   ])
     .then(([index, member, fallTeams]) => renderProfile(member, index.tracks || [], fallTeams))
     .catch(err => { console.error('render error:', err); renderInvalid('페이지를 찾을 수 없습니다', '링크가 잘못되었거나 만료되었을 수 있습니다. (' + (err && err.message ? err.message : err) + ')'); });
