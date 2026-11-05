@@ -5,8 +5,8 @@
       "name": "1인사업가",
       "track": "Realignment",
       "band": "양방향",
-      "headline": "고객부터 운영까지 다시 짜는 '90일 사업 설계도' 완성하기",
-      "lead": "일은 끊이지 않는데 사업으로 확장되지 않는다면",
+      "headline": "혼자 일하던 방식을 혼자서도 사업이 돌아가는 방식으로 하나씩 옮겨 봅니다",
+      "lead": "나는 일만 하고 있을까, 사업을 만들고 있을까?",
       "product_url": "https://thehfk.org/shop_view?idx=331"
     },
     {
@@ -42,11 +42,19 @@
       "product_url": "https://thehfk.org/shop_view?idx=49"
     },
     {
+      "name": "매출전략가",
+      "track": "Enrichment",
+      "band": "수렴",
+      "headline": "누구에게, 무엇을, 어떻게, 어디서, 누가 팔지 다시 설계한 '내 매출 성장 계획 한 장' 완성하기",
+      "lead": "영업은 매일 하는데, 매출이 왜 그대로인지 설명하기 어렵다면",
+      "product_url": "https://thehfk.org/shop_view?idx=326"
+    },
+    {
       "name": "브랜드언어",
       "track": "Horizontal",
       "band": "수렴",
-      "headline": "브랜드 말투를 정하고, AI도 같은 말투로 쓰게 만들기",
-      "lead": "AI로 문구는 매일 쓰는데, 우리 브랜드만의 말투는 아직 정하지 못했다면",
+      "headline": "브랜드의 언어를 정하고, AI가 그 언어를 쓰게 합니다",
+      "lead": "AI에게 무엇을 시켜도 '이건 우리 브랜드답네'라고 느끼고 싶다면",
       "product_url": "https://thehfk.org/shop_view?idx=324"
     },
     {
@@ -86,7 +94,7 @@
       "track": "New Horizons",
       "band": "발산",
       "headline": "MIT 테크놀로지 리뷰를 읽고 유의미한 인사이트 살펴보기",
-      "lead": "AI를 매일 쓰는데도, 변화를 따라가기 어렵다면",
+      "lead": "AI를 매일 쓰는데도, 제대로 알고 쓰는 건지 모르겠다면",
       "product_url": "https://thehfk.org/shop_view?idx=329"
     },
     {
