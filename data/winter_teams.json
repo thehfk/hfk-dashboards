@@ -29,8 +29,8 @@
       "name": "리더시네마",
       "track": "Vertical",
       "band": "발산",
-      "headline": "영화 여섯 편으로 나만의 리더십 원칙 한 문장 완성하기",
-      "lead": "리더십 책은 꽤 읽었는데, 결정의 순간에는 '나는 어떤 리더인가' 확신이 서지 않는다면",
+      "headline": "영화 여섯 편으로 나만의 리더십 원칙 완성하기",
+      "lead": "리더십 책은 꽤 읽었지만 막상 '나는 어떤 리더인가' 확신이 서지 않는다면",
       "product_url": "https://thehfk.org/shop_view?idx=328"
     },
     {
@@ -133,8 +133,8 @@
       "name": "리더의AI",
       "track": "Vertical",
       "band": "양방향",
-      "headline": "우리 팀에 맞는 '리더의 AI 활용 매뉴얼' 완성하기",
-      "lead": "AI를 잘 쓰고 있지만, 팀에는 어떻게 퍼뜨릴지 막막하다면",
+      "headline": "내 업무에 AI를 활용하고, 팀의 일하는 방식도 하나씩 바꿔 봅니다",
+      "lead": "AI로 팀을 어디까지 리드해 보셨나요?",
       "product_url": "https://thehfk.org/shop_view?idx=330"
     },
     {
@@ -157,8 +157,8 @@
       "name": "직장인문학",
       "track": "New Horizons",
       "band": "발산",
-      "headline": "사랑의 세 가지 색으로, 사람을 대하는 나를 다시 봅니다",
-      "lead": "같은 사람에게 기대하고 실망하는 일이 반복될 때",
+      "headline": "사랑의 세 가지 색으로 사람을 대하는 나를 다시 봅니다",
+      "lead": "사랑을 제대로 공부해 본 적이 없다면",
       "product_url": "https://thehfk.org/shop_view?idx=95"
     },
     {
@@ -176,6 +176,14 @@
       "headline": "투자하는 사람의 눈으로 읽는 글로벌 뉴스는 다릅니다",
       "lead": "글로벌 이슈와 투자를 격주로 점검합니다",
       "product_url": "https://thehfk.org/shop_view?idx=72"
+    },
+    {
+      "name": "마흔인터뷰",
+      "track": "Realignment",
+      "band": "양방향",
+      "headline": "15년 차 에디터와 인터뷰하며, 40대의 커리어 지도 구체화하기",
+      "lead": "40대, 남을까? 이직할까? 독립할까?",
+      "product_url": "https://thehfk.org/shop_view?idx=333"
     }
   ]
 }
