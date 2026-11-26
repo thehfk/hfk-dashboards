@@ -1041,6 +1041,21 @@ function attachTooltip() {
   });
 }
 
+// 멤버 파일은 암호문이다(2026-11-26). 파일 이름과 열쇠 모두 토큰에서 나오므로 링크를 받은 사람만 찾고 푼다.
+// 짝: scripts/build_member_roadmap_data.py member_file_id()·encrypt_member()
+async function loadMember(token) {
+  const te = new TextEncoder();
+  const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
+  const fid = hex(await crypto.subtle.digest('SHA-256', te.encode('hfk-m-file:' + token))).slice(0, 32);
+  const r = await fetch(`./data/m/${fid}.enc`);
+  if (!r.ok) throw new Error('not found');
+  const buf = new Uint8Array(await r.arrayBuffer());
+  const raw = await crypto.subtle.digest('SHA-256', te.encode('hfk-m-key:' + token));
+  const key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+  const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: buf.slice(0, 12) }, key, buf.slice(12));
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+
 if (!token) {
   renderInvalid('접근 권한 필요', '본인에게 전달된 링크로만 접근 가능합니다.');
 } else if (!TOKEN_RE.test(token)) {
@@ -1048,10 +1063,7 @@ if (!token) {
 } else {
   Promise.all([
     fetch(INDEX_URL).then(r => r.json()),
-    fetch(`./data/m/${token}.json`).then(r => {
-      if (!r.ok) throw new Error('not found');
-      return r.json();
-    }),
+    loadMember(token),
     fetch('./data/' + (NEXT_SEASON === '26겨울' ? 'winter' : 'fall') + '_teams.json').then(r => r.ok ? r.json() : null).catch(() => null),
   ])
     .then(([index, member, fallTeams]) => renderProfile(member, index.tracks || [], fallTeams))

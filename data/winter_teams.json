@@ -18,22 +18,6 @@
       "product_url": "https://thehfk.org/shop_view?idx=312"
     },
     {
-      "name": "글쓰는OO",
-      "track": "Enrichment",
-      "band": "수렴",
-      "headline": "내 경험과 지식 중 수요가 있는 콘텐츠는 무엇일까",
-      "lead": "내가 쓰고 싶은 글이 아니라 사람들이 읽고 싶은 글 쓰기",
-      "product_url": "https://thehfk.org/shop_view?idx=158"
-    },
-    {
-      "name": "리더시네마",
-      "track": "Vertical",
-      "band": "발산",
-      "headline": "영화 여섯 편으로 나만의 리더십 원칙 완성하기",
-      "lead": "리더십 책은 꽤 읽었지만 막상 '나는 어떤 리더인가' 확신이 서지 않는다면",
-      "product_url": "https://thehfk.org/shop_view?idx=328"
-    },
-    {
       "name": "리더의서재",
       "track": "New Horizons",
       "band": "발산",
@@ -58,22 +42,6 @@
       "product_url": "https://thehfk.org/shop_view?idx=324"
     },
     {
-      "name": "서울재발견",
-      "track": "Horizontal",
-      "band": "발산",
-      "headline": "외국인의 시선으로 서울의 비즈니스를 재해석합니다",
-      "lead": "서울에서 일하는 우리는 서울만의 매력을 매일 지나치며 놓치고 있습니다",
-      "product_url": "https://thehfk.org/shop_view?idx=207"
-    },
-    {
-      "name": "영어의완성",
-      "track": "Enrichment",
-      "band": "양방향",
-      "headline": "일상 영어에서, 나를 돋보이게 하는 영어로",
-      "lead": "From Familiar to Professional, 늘 쓰던 영어를 전문가의 영어로",
-      "product_url": "https://thehfk.org/shop_view?idx=56"
-    },
-    {
       "name": "AI부사수(SUN)",
       "track": "Enrichment",
       "band": "수렴",
@@ -82,36 +50,12 @@
       "product_url": "https://thehfk.org/shop_view?idx=232"
     },
     {
-      "name": "AX팀빌딩",
+      "name": "AI자동화",
       "track": "Enrichment",
       "band": "수렴",
-      "headline": "미뤄 둔 회사 업무를 AI 서비스로 직접 만들어 봅니다",
-      "lead": "나는 어떤 종류의 일을 하는 사람일까요?",
+      "headline": "우리 팀의 반복 업무를 찾아 팀이 함께 쓰는 도구 만들기",
+      "lead": "우리 팀이 매주 반복하는 일, AI에게 맡길 수 있을까요?",
       "product_url": "https://thehfk.org/shop_view?idx=303"
-    },
-    {
-      "name": "MIT리뷰",
-      "track": "New Horizons",
-      "band": "발산",
-      "headline": "MIT 테크놀로지 리뷰를 읽고 유의미한 인사이트 찾기",
-      "lead": "쏟아지는 AI 뉴스 속에서 안목을 키우려면",
-      "product_url": "https://thehfk.org/shop_view?idx=329"
-    },
-    {
-      "name": "경영브릿지",
-      "track": "New Horizons",
-      "band": "발산",
-      "headline": "HBR 최신 사례로 회사 전체를 파악하고 결정하는 연습",
-      "lead": "결정할 일이 늘수록, 자신의 선택을 설명하기는 더 어려워집니다",
-      "product_url": "https://thehfk.org/shop_view?idx=255"
-    },
-    {
-      "name": "관찰과발견",
-      "track": "Horizontal",
-      "band": "양방향",
-      "headline": "사용자를 관찰해 문제를 정의하고, AI로 해결책을 찾습니다",
-      "lead": "익숙한 분석 틀로는 풀리지 않던 실무 문제",
-      "product_url": "https://thehfk.org/shop_view?idx=65"
     },
     {
       "name": "독립자본가",
@@ -120,14 +64,6 @@
       "headline": "여섯 개의 질문으로 진단하는 나의 독립자본",
       "lead": "회사가 없어도 나를 찾는 사람은 누구일까요?",
       "product_url": "https://thehfk.org/shop_view?idx=307"
-    },
-    {
-      "name": "리더될준비",
-      "track": "Vertical",
-      "band": "양방향",
-      "headline": "리더가 되기 전 미리 익히는 리더십 기본기",
-      "lead": "리더가 되려면 무엇을 미리 알아야 하고, 뭐부터 공부해야 할까요?",
-      "product_url": "https://thehfk.org/shop_view?idx=50"
     },
     {
       "name": "리더의AI",
@@ -160,14 +96,6 @@
       "headline": "사랑의 세 가지 색으로 사람을 대하는 나를 다시 봅니다",
       "lead": "사랑을 제대로 공부해 본 적이 없다면",
       "product_url": "https://thehfk.org/shop_view?idx=95"
-    },
-    {
-      "name": "컨퍼런스콜",
-      "track": "Enrichment",
-      "band": "양방향",
-      "headline": "영어로 일하는 실무자들은 해외 클라이언트와 어떻게 소통할까요",
-      "lead": "일대일 면담·이메일·회의 발언·임원 보고, 영어로 내 의견을 분명히 말해야 하는 순간",
-      "product_url": "https://thehfk.org/shop_view?idx=274"
     },
     {
       "name": "팀오호츠크",
